@@ -3,6 +3,7 @@ import AddTransaction from "../components/AddTransaction";
 import TransactionList from "../components/TransactionList";
 import Summary from "../components/Summary";
 import LogoutButton from '../components/LogoutButton';
+import logo from '../CashTrack.png'; // ✅ Make sure this file exists
 
 export default function HomePage() {
   useEffect(() => {
@@ -20,14 +21,16 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2>Dashboard</h2>
+    <div className="container">
+      <div className="dashboard-header">
+        <div className="dashboard-title">
+          <img src={logo} alt="CashTrack Logo" />
+          <h2>Dashboard</h2>
+        </div>
         <LogoutButton />
       </div>
 
-    <Summary />
-      <hr style={{ margin: "20px 0" }} />
+      <Summary />
 
       <AddTransaction onSuccess={() => window.location.reload()} />
       <TransactionList />

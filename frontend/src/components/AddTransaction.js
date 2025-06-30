@@ -32,26 +32,47 @@ export default function AddTransaction({ onSuccess }) {
   return (
     <form onSubmit={handleSubmit}>
       <h3>Add Transactions</h3>
-      <select value={form.type} onChange={e => setForm({ ...form, type: e.target.value })}>
-        <option>Income</option>
-        <option>Expense</option>
-      </select>
-      <input
-        type="number"
-        placeholder="Amount"
-        value={form.amount}
-        onChange={e => setForm({ ...form, amount: e.target.value })}
-        required
-      />
-      <select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}>
-        {categories.map(cat => <option key={cat}>{cat}</option>)}
-      </select>
-      <input
-        type="text"
-        placeholder="Description"
-        value={form.description}
-        onChange={e => setForm({ ...form, description: e.target.value })}
-      />
+      
+      {/* First Row: Type and Amount */}
+      <div style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
+        <select
+          value={form.type}
+          onChange={(e) => setForm({ ...form, type: e.target.value })}
+          style={{ flex: 1 }}
+        >
+          <option>Income</option>
+          <option>Expense</option>
+        </select>
+        <input
+          type="number"
+          placeholder="Amount"
+          value={form.amount}
+          onChange={(e) => setForm({ ...form, amount: e.target.value })}
+          required
+          style={{ flex: 2 }}
+        />
+      </div>
+
+      {/* Second Row: Category and Description */}
+      <div style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
+        <select
+          value={form.category}
+          onChange={(e) => setForm({ ...form, category: e.target.value })}
+          style={{ flex: 1 }}
+        >
+          {categories.map((cat) => (
+            <option key={cat}>{cat}</option>
+          ))}
+        </select>
+        <input
+          type="text"
+          placeholder="Description"
+          value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
+          style={{ flex: 2 }}
+        />
+      </div>
+
       <button type="submit">Add</button>
     </form>
   );

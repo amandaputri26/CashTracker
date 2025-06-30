@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
 
-useEffect(() => {
-  fetch('http://localhost:4000/transactions', {
-    credentials: 'include',
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("Dari backend:", data); 
-      setTransactions(data);
+  useEffect(() => {
+    fetch('http://localhost:4000/transactions', {
+      credentials: 'include',
     })
-    .catch((err) => console.error('Failed to fetch', err));
-}, []);
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Dari backend:", data); 
+        setTransactions(data);
+      })
+      .catch((err) => console.error('Failed to fetch', err));
+  }, []);
 
   const formatRupiah = (number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -39,16 +39,22 @@ useEffect(() => {
     return date.toLocaleString('id-ID', options); 
   };
 
+  const getRowClassName = (type) => {
+    const className = type === 'Income' ? 'transaction-income' : 'transaction-expense';
+    console.log(`Transaction type: ${type}, Class: ${className}`); // Debug line
+    return className;
+  };
+
   return (
     <div>
-      <h2>Daftar Transaksi</h2>
+      <h2>Transaction History</h2>
       <table border="1" cellPadding="8" style={{ width: '100%', marginTop: '10px' }}>
         <thead>
           <tr>
             <th>Dates</th>
             <th>Types</th>
             <th>Total</th>
-            <th>Catagories</th>
+            <th>Categories</th>
             <th>Description</th>
           </tr>
         </thead>
@@ -59,7 +65,10 @@ useEffect(() => {
             </tr>
           ) : (
             transactions.map((transaction, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                className={getRowClassName(transaction.type)}
+              >
                 <td>{formatDateTime(transaction.date)}</td>
                 <td>{transaction.type}</td>
                 <td>{formatRupiah(transaction.amount)}</td>

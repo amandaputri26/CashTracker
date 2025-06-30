@@ -30,14 +30,25 @@ const Summary = () => {
     }).format(number);
   };
 
-  return (
-    <div>
-      <h3>Ringkasan Bulanan</h3>
-      <p>💰 Total Pemasukan: {formatRupiah(totalIncome)}</p>
-      <p>🧾 Total Pengeluaran: {formatRupiah(totalExpense)}</p>
-      <p>💼 Saldo Saat Ini: {formatRupiah(balance)}</p>
+return (
+  <div>
+    <h3>Monthly Recap</h3>
+    <div className="summary-container">
+      <div className="summary-box">
+        <h4>💰 Total Income:</h4>
+        <div className="summary-value">{formatRupiah(totalIncome)}</div>
+      </div>
+      <div className="summary-box">
+        <h4>🧾 Total Expenses:</h4>
+        <div className="summary-value">{formatRupiah(totalExpense)}</div>
+      </div>
+      <div className="summary-box">
+        <h4>💼 Current Balance:</h4>
+        <div className="summary-value">{formatRupiah(balance)}</div>
+      </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Summary;

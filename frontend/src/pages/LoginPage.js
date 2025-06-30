@@ -22,13 +22,27 @@ export default function LoginPage({ onLogin }) {
     }
   };
 
-  return (
-    <form onSubmit={handleLogin}>
+return (
+  <div className="auth-background">
+    <form onSubmit={handleLogin} className="auth-card">
+      <h3>Welcome to CashTrack</h3>
       <h2>Login</h2>
-      <input placeholder="Username" value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} required />
-      <input type="password" placeholder="Password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />
+      <input
+        placeholder="Username"
+        value={form.username}
+        onChange={e => setForm({ ...form, username: e.target.value })}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={e => setForm({ ...form, password: e.target.value })}
+        required
+      />
       <button type="submit">Login</button>
-      <p>Belum punya akun? <a href="/register">Register</a></p>
+      <p>Don't have an Account yet? <a href="/register" style={{ color: '#fff', textDecoration: 'underline' }}>Register Here!</a></p>
     </form>
-  );
+  </div>
+);
 }

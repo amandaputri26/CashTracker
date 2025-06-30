@@ -1,38 +1,250 @@
-.App {
-  text-align: center;
+/* === GLOBAL STYLES === */
+* {
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  margin: 0;
   min-height: 100vh;
+  background: linear-gradient(305deg, rgba(42, 155, 110, 1) 0%, rgba(87, 199, 133, 1) 39%, rgba(186, 237, 149, 1) 66%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+/* === MAIN CONTAINER === */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: #1e593c;
+  border-radius: 5px;
+}
+
+/* === HEADINGS === */
+h2, h3 {
+  color: #1e593c;
+}
+
+/* === FORMS === */
+form {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+form input,
+form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* === BUTTONS === */
+button,
+form button,
+.logout-button {
+  background-color: #1e593c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+form button:hover,
+.logout-button:hover {
+  background-color: #184c34;
+}
+
+form button {
+  padding: 10px;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* === LINKS === */
+a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* === DASHBOARD HEADER === */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-title img {
+  width: 80px;
+  height: 80px;
+}
+
+/* === SUMMARY SECTION === */
+.summary p {
+  margin: 4px 0;
+  font-weight: 500;
+}
+
+.summary-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.summary-box {
+  flex: 1;
+  min-width: 200px;
+  background-color: #c6dfaf;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.summary-box h4 {
+  margin: 10px;
+  color: #1e593c;
+  font-size: 1.1rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 5px;
+  font-weight: bold;
 }
 
-.App-link {
-  color: #61dafb;
+.summary-value {
+  background-color: #f1f1f1;
+  padding: 15px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* === TABLES === */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 12px;
+  background: #fff;
+}
+
+table th, 
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+table tr:nth-child(even):not(.transaction-income):not(.transaction-expense) {
+  background-color: #fafafa;
+}
+
+table tr.transaction-income {
+  background-color: #d2ffe6 !important;
+}
+
+table tr.transaction-expense {
+  background-color: #ffd6d6 !important;
+}
+
+/* === AUTH PAGES === */
+.auth-background {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  background: linear-gradient(305deg, 
+    rgba(42, 155, 110, 1) 0%, 
+    rgba(87, 199, 133, 1) 39%, 
+    rgba(186, 237, 149, 1) 66%, 
+    rgba(186, 237, 149, 1) 100%);
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  color: #fff;
+}
+
+.auth-card input,
+.auth-card button {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-card h2,
+.auth-card p,
+.auth-card a,
+.auth-card h3 {
+  color: #1e593c;
+}
+
+.auth-card input::placeholder {
+  color: #1e593c;
+  opacity: 0.7;
+}
+
+.auth-card h3 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.auth-card h2 {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 600;
 }

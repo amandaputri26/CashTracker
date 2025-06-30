@@ -23,14 +23,34 @@ export default function RegisterPage() {
     }
   };
 
-  return (
-    <form onSubmit={handleRegister}>
+return (
+  <div className="auth-background">
+    <form onSubmit={handleRegister} className="auth-card">
+      <h3>Let's create an account</h3>
       <h2>Register</h2>
-      <input placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
-      <input placeholder="Username" value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} required />
-      <input type="password" placeholder="Password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />
+      <input
+        placeholder="Email"
+        value={form.email}
+        onChange={e => setForm({ ...form, email: e.target.value })}
+        required
+      />
+      <input
+        placeholder="Username"
+        value={form.username}
+        onChange={e => setForm({ ...form, username: e.target.value })}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={e => setForm({ ...form, password: e.target.value })}
+        required
+      />
       <button type="submit">Register</button>
-      <p>Have an account?<a href="/login">Login</a></p>
+      <p>Already have an Account? <a href="/login" style={{ color: '#fff', textDecoration: 'underline' }}>Login</a></p>
     </form>
-  );
+  </div>
+);
+
 }
