@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function AddTransaction({ onSuccess }) {
   const [form, setForm] = useState({
@@ -7,6 +7,26 @@ export default function AddTransaction({ onSuccess }) {
     category: "",
     description: ""
   });
+
+  const categories = form.type === "Income"
+    ? ["Salary", "Gift", "Allowance", "Other"]
+    : ["Food", "Transport", "Groceries", "Rent", "Bill", "Other"];
+
+  
+  useEffect(() => {
+    setForm((prev) => ({
+      ...prev,
+      category: categories[0],
+    }));
+  }, [form.type]);
+
+  const formatWithDots = (value) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
+  const unformatDots = (value) => {
+    return value.replace(/\./g, "");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,15 +45,10 @@ export default function AddTransaction({ onSuccess }) {
     }
   };
 
-  const categories = form.type === "Income"
-    ? ["Salary", "Gift", "Other"]
-    : ["Food", "Transport", "Groceries", "Rent", "Bill", "Other"];
-
   return (
     <form onSubmit={handleSubmit}>
       <h3>Add Transactions</h3>
-      
-      {/* First Row: Type and Amount */}
+
       <div style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
         <select
           value={form.type}
@@ -44,16 +59,19 @@ export default function AddTransaction({ onSuccess }) {
           <option>Expense</option>
         </select>
         <input
-          type="number"
+          type="text"
           placeholder="Amount"
-          value={form.amount}
-          onChange={(e) => setForm({ ...form, amount: e.target.value })}
+          value={formatWithDots(form.amount)}
+          onChange={(e) => {
+            const raw = unformatDots(e.target.value);
+            if (!isNaN(raw)) {
+              setForm({ ...form, amount: raw });
+            }
+          }}
           required
           style={{ flex: 2 }}
         />
       </div>
-
-      {/* Second Row: Category and Description */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
         <select
           value={form.category}
@@ -72,7 +90,6 @@ export default function AddTransaction({ onSuccess }) {
           style={{ flex: 2 }}
         />
       </div>
-
       <button type="submit">Add</button>
     </form>
   );

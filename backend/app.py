@@ -127,5 +127,41 @@ def add_transaction():
     cur.close()
     return jsonify({'message': 'Transaction added'})
 
+# ✅ NEW: Update transaction
+@app.route('/transactions/<int:id>', methods=['PUT'])
+def update_transaction(id):
+    if 'user_id' not in session:
+        return jsonify({'message': 'Unauthorized'}), 401
+
+    data = request.json
+    cur = mysql.connection.cursor()
+    cur.execute('''
+        UPDATE transactions
+        SET type=%s, amount=%s, category=%s, description=%s
+        WHERE id=%s AND user_id=%s
+    ''', (
+        data['type'],
+        int(data['amount']),
+        data['category'],
+        data.get('description', ''),
+        id,
+        session['user_id']
+    ))
+    mysql.connection.commit()
+    cur.close()
+    return jsonify({'message': 'Transaction updated'})
+
+# ✅ NEW: Delete transaction
+@app.route('/transactions/<int:id>', methods=['DELETE'])
+def delete_transaction(id):
+    if 'user_id' not in session:
+        return jsonify({'message': 'Unauthorized'}), 401
+
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM transactions WHERE id=%s AND user_id=%s', (id, session['user_id']))
+    mysql.connection.commit()
+    cur.close()
+    return jsonify({'message': 'Transaction deleted'})
+
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
