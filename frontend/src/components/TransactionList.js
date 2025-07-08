@@ -89,7 +89,7 @@ const TransactionList = () => {
 
   const getCategories = (type) =>
     type === "Income"
-      ? ["Salary", "Gift", "Other"]
+      ? ["Salary", "Gift", "Allowance", "Other"]
       : ["Food", "Transport", "Groceries", "Rent", "Bill", "Other"];
 
   return (
